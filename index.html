@@ -7,6 +7,41 @@
     <title>Document</title>
 </head>
 <body>
-    <div>나는 잘생겼다</div>
+    <input type="button" value="회원 정보 불러오기" onclick="getEvent()">
+
+    <input type="text" id="id_value">
+    <input type="text" id="pw_value">
+    <input type="button" value="로그인" onclick="loginEvent()">
+
+    <script>
+        const getEvent = () =>{
+            fetch("/account") //프론트엔드에서 get이라서 결과를 못 받아옴 //매개변수 보내려면 query parameter 형식으로
+            .then((response) => {
+                //const result = response.json() //얘가 비동기 함수라서 result 가져오기 불가
+                return response.json()
+            })
+            .then((result) => {
+                console.log(result)
+            })
+        }
+        const loginEvent = () =>{
+            fetch("/account/login",{// get빼고 이거 3개는 전부 이렇게 해주기 //Get은 body를 못 넣어줌
+                "method" : "POST",
+                "headers":{
+                    "Content-Type":"application/json"
+                },
+                "body":JSON.stringify({
+                    "id" : document.getElementById("id_value").value,
+                    "pw" : document.getElementById("pw_value").value
+                })
+            }) 
+            .then((response) => {
+                return response.json()
+            })
+            .then((result) => {
+                console.log(result)
+            })
+        }
+    </script>
 </body>
 </html>

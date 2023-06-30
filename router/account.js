@@ -3,7 +3,9 @@ const router = require("express").Router()
 //router.use 안해도 됨. server.js에서 등록하면 모든 하위 js에 적용
 //express에 대해 켜지는 것이기 때문
 
-router.get("/login",(req,res)=>{ // 호출 이름
+
+//login은 post로
+router.post("/login",(req,res)=>{ // 호출 이름
     //req를 object(json)로 받아옴
     const {id,pw} = req.body; // 오브젝트는 reference입니다.
 
@@ -12,7 +14,7 @@ router.get("/login",(req,res)=>{ // 호출 이름
         "message" : ""
     }
 
-    if(id = "stageus" && pw == "1234"){
+    if(id == "stageus" && pw == "1234"){
         result.success = true
         result.message = "로그인 성공"
     } else{
@@ -22,8 +24,30 @@ router.get("/login",(req,res)=>{ // 호출 이름
     res.send(result)
 })
 
+// router.get("/:data/:data2",(req,res)=>{
+
+//     //query-string (...:8000/account?data= 123) // api 이름은 / 하나임
+//     //const data = req.query.data
+
+//     //qeury-parameter (...:8000/account/ 123 /456)
+//     const data = req.params.data
+//     const data2 = req.params.data2
+
+//     const result ={
+//         "success" : true,
+//         "message" : "",
+//         "data": {
+//             "id":"stageus",
+//             "pw":"1234",
+//             "name":"최민석"
+//         }
+//     }
+
+//     res.send(result)
+// })
 
 router.get("/",(req,res)=>{
+
     const result ={
         "success" : true,
         "message" : "",
